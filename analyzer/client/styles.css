@@ -1,0 +1,16 @@
+body {
+    text-align: center;
+}
+
+h1 {
+    margin: 50px;
+}
+
+form {
+    margin-bottom: 50px;
+}
+
+#results {
+    margin-top: 50px;
+    font-weight: bold;
+}
