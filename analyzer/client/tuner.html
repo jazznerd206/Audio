@@ -1,0 +1,58 @@
+<!-- This HTML template uses the Chart.js library to create a line chart to display the intervals data received from the server. It fetches the intervals data from the /data route and creates a line chart with the received data.
+
+To start the program, run the Python script, and you should be able to access the web application with the intonation analysis UI at http://localhost:5000/.
+
+Note that this program provides a basic structure for analyzing intonation in real-time and serving it as a web application. The intonation analysis algorithm used in analyze_intonation is a placeholder implementation, and you can replace it with a more sophisticated algorithm based on your requirements. -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intonation Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="plot"></canvas>
+
+    <script>
+        // Get the intervals data from the server
+        fetch('/data')
+            .then(response => response.json())
+            .then(data => {
+                // Create a chart with the intervals data
+                const ctx = document.getElementById('plot').getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({ length: data.intervals.length }, (_, i) => i + 1),
+                        datasets: [{
+                            label: 'Intervals',
+                            data: data.intervals,
+                            borderColor: 'blue',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Time (Frames)'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Pitch'
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+    </script>
+</body>
+</html>
